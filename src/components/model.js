@@ -14,8 +14,8 @@ const View = dynamic(() => import('src/components/view')
 
 export function Model(props) {
     const meshRef = useRef();
-    const rows = 512;
-    const columns = 512;
+    const rows = 10;
+    const columns = 10;
     const halfColumns = Math.floor(columns / 2);
     const halfRows = Math.floor(rows / 2);
     
@@ -48,9 +48,11 @@ export function Model(props) {
                   ref={meshRef} />
                 <PerspectiveCamera
                   makeDefault
-                  near={0.1}
-                  far={3000}
-                  position={[0, 0, 1000]} />
+                  fov={70}
+                  near={0.001}
+                  far={1000}
+                  position={[0, 0, 20]}
+                />
                   {/* <ambientLight intensity={0.5} />
                   <directionalLight intensity={0.5} position={[0.5, 0, 0.866]} /> {/* ~60º */}
             </Suspense>

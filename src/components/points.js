@@ -31,21 +31,22 @@ export const Points = forwardRef((props, ref) => {
         // shaderRef.current.uniforms.uTime.value = state.clock.elapsedTime;
 
         // executes 1/frame, so we can just directly morph the ref with a delta
-        ref.current.rotation.x += 0.01;
-        ref.current.rotation.y += 0.02;
+        // ref.current.rotation.x += 0.01;
+        // ref.current.rotation.y += 0.02;
     })
 
     return (
         <points ref={ref}>
-            <bufferGeometry
+            {/* <bufferGeometry
               width={1}
               height={1}
-              widthSegments={1}
-              heightSegments={1}
+              widthSegments={10}
+              heightSegments={10}
             >
                 <bufferAttribute attach={'attributes-position'} args={[vertices, 3]} />
                 <bufferAttribute attach={'attributes-aCoords'} args={[positions, 2]} />
-            </bufferGeometry>
+            </bufferGeometry> */}
+            <planeGeometry args={[1, 1, 10, 10]} />
             <shaderMaterial
               ref={shaderRef}
               extensions={{ derivatives: "#extension GL_OES_standard_derivatives : enable"}}
@@ -57,6 +58,7 @@ export const Points = forwardRef((props, ref) => {
               fragmentShader={fragment}
               side={DoubleSide}
               depthTest={false}
+              wireframe={true}
               transparent
             />
         </points>
