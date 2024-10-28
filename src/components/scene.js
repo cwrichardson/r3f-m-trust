@@ -28,7 +28,7 @@ export function Scene(props) {
     const [ cssProps, canvasProps ] = splitCssProps(props);
     const { css: containerCssProps, ...containerStyleProps } = cssProps;
 
-    const classes = css(containerStyleProps, containerCssProps);
+    const classes = css(containerStyleProps, containerCssProps, { bgColor: 'black' });
 
     /**
      * R3F annoying sets some inline style attributes on the containing `div`
