@@ -7,7 +7,7 @@ export const fragment = /* glsl */ `
         // gl_FragColor = vec4(1., 0., 0., 1.);
         vec4 texture = texture2D(uTexture, vUv);
         // gl_FragColor = vec4(vUv, 0., 1.);
-        gl_FragColor = vec4(1., 1., 1., 1.);
-        // gl_FragColor = texture;
+        // gl_FragColor = vec4(1., 1., 1., 1.);
+        gl_FragColor = texture;
     }
 `;

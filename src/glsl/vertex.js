@@ -1,6 +1,7 @@
 import { CURL_NOISE_WITH_DEPS } from './noise';
 
 export const vertex = CURL_NOISE_WITH_DEPS + /* glsl */ `
+    uniform float uDistortion;
     uniform float uProgress;
     uniform float uTime;
     varying vec2 vUv;
@@ -12,7 +13,7 @@ export const vertex = CURL_NOISE_WITH_DEPS + /* glsl */ `
             position.x*0.02,
             position.y*0.008,
             uTime * 0.01
-        ));
+        )) * uDistortion;
         vec3 finalPosition = position + distortion;
 
         vec4 mvPosition = modelViewMatrix * vec4( finalPosition, 1. );

@@ -19,13 +19,13 @@ export const Points = forwardRef((props, ref) => {
     /**
      * Use leva controls
      */
-    const { progress } = useControls({
-        progress: {
-            value: 1,
+    const { distortion } = useControls({
+        distortion: {
+            value: 0.01,
             min: 0,
-            max: 1,
+            max: 3,
             onChange: (v) => {
-                shaderRef.current.uniforms.uProgress.value = v;
+                shaderRef.current.uniforms.uDistortion.value = v;
             }
         }
     })
@@ -55,6 +55,7 @@ export const Points = forwardRef((props, ref) => {
               ref={shaderRef}
               extensions={{ derivatives: "#extension GL_OES_standard_derivatives : enable"}}
               uniforms={{
+                  uDistortion: { value: 0 },
                   uProgress: { value: 1 },
                   uTexture: { value: whiteFlowerTexture },
                   uTime: { value: 0 }
