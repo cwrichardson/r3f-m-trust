@@ -8,7 +8,11 @@ export const vertex = CURL_NOISE_WITH_DEPS + /* glsl */ `
     void main() {
         vUv = uv;
 
-        vec3 distortion = curl_noise(vec3(position.x + uTime, position.y, 0.));
+        vec3 distortion = vec3(position.x * 2., position.y, 1.) * curl_noise(vec3(
+            position.x*0.02,
+            position.y*0.008,
+            uTime * 0.01
+        ));
         vec3 finalPosition = position + distortion;
 
         vec4 mvPosition = modelViewMatrix * vec4( finalPosition, 1. );
