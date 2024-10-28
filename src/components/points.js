@@ -7,10 +7,14 @@ import { DoubleSide } from 'three';
 import { vertex } from '@/glsl/vertex';
 import { fragment } from '@/glsl/fragment';
 import { useControls } from 'leva';
+import { useTexture } from '@react-three/drei';
 
 export const Points = forwardRef((props, ref) => {
     const { vertices, positions } = props;
     const shaderRef = useRef();
+
+    const whiteFlowerTexture = useTexture('/media/white-flower.jpg');
+    const redFlowerTexture = useTexture('/media/red-flower.jpg');
 
     /**
      * Use leva controls
@@ -46,12 +50,13 @@ export const Points = forwardRef((props, ref) => {
                 <bufferAttribute attach={'attributes-position'} args={[vertices, 3]} />
                 <bufferAttribute attach={'attributes-aCoords'} args={[positions, 2]} />
             </bufferGeometry> */}
-            <planeGeometry args={[480, 820, 480, 820]} />
+            <planeGeometry args={[608*1.5, 344*1.5, 608, 344]} />
             <shaderMaterial
               ref={shaderRef}
               extensions={{ derivatives: "#extension GL_OES_standard_derivatives : enable"}}
               uniforms={{
                   uProgress: { value: 1 },
+                  uTexture: { value: whiteFlowerTexture },
                   uTime: { value: 0 }
               }}
               vertexShader={vertex}
