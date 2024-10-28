@@ -50,8 +50,8 @@ export function Model(props) {
                   makeDefault
                   fov={70}
                   near={0.001}
-                  far={1000}
-                  position={[0, 0, 20]}
+                  far={5000}
+                  position={[0, 0, 1500]}
                 />
                   {/* <ambientLight intensity={0.5} />
                   <directionalLight intensity={0.5} position={[0.5, 0, 0.866]} /> {/* ~60º */}

@@ -46,7 +46,7 @@ export const Points = forwardRef((props, ref) => {
                 <bufferAttribute attach={'attributes-position'} args={[vertices, 3]} />
                 <bufferAttribute attach={'attributes-aCoords'} args={[positions, 2]} />
             </bufferGeometry> */}
-            <planeGeometry args={[1, 1, 10, 10]} />
+            <planeGeometry args={[480, 820, 480, 820]} />
             <shaderMaterial
               ref={shaderRef}
               extensions={{ derivatives: "#extension GL_OES_standard_derivatives : enable"}}
