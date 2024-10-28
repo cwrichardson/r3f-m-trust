@@ -10,9 +10,9 @@ export const vertex = CURL_NOISE_WITH_DEPS + /* glsl */ `
         vUv = uv;
 
         vec3 distortion = vec3(position.x * 2., position.y, 1.) * curl_noise(vec3(
-            position.x*0.02,
-            position.y*0.008,
-            uTime * 0.01
+            position.x*0.002 * uTime*0.1,
+            position.y*0.008 * uTime*0.1,
+            (position.x + position.y) * 0.02
         )) * uDistortion;
         vec3 finalPosition = position + distortion;
 
