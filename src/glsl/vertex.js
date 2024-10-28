@@ -1,4 +1,6 @@
-export const vertex = /* glsl */ `
+import { CURL_NOISE_WITH_DEPS } from './noise';
+
+export const vertex = CURL_NOISE_WITH_DEPS + /* glsl */ `
     uniform float uProgress;
     uniform float uTime;
     varying vec2 vUv;
@@ -6,7 +8,10 @@ export const vertex = /* glsl */ `
     void main() {
         vUv = uv;
 
-        vec4 mvPosition = modelViewMatrix * vec4( position, 1. );
+        vec3 distortion = curl_noise(vec3(position.x, position.y, 0.));
+        vec3 finalPosition = position + distortion;
+
+        vec4 mvPosition = modelViewMatrix * vec4( finalPosition, 1. );
         // start with big particles; give them some perspective
         gl_PointSize = 100. * ( 1. / - mvPosition.z );
         gl_Position = projectionMatrix * mvPosition;
