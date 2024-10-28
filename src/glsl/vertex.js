@@ -7,7 +7,7 @@ export const vertex = /* glsl */ `
     varying vec3 vPosition;
 
     void main() {
-        vUv = aCoords;
+        vUv = uv;
         vPosition = position;
 
         vec4 mvPosition = modelViewMatrix * vec4( position, 1. );
