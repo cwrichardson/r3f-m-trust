@@ -62,20 +62,15 @@ export function Model(props) {
                   <directionalLight intensity={0.5} position={[0.5, 0, 0.866]} /> {/* ~60º */}
             </Suspense>
             <Suspense fallback={null}>
-                  <EffectComposer disableNormalPass>
-                    {/* 
-                    
-                    UnrealBloomPass( (w/h), 1.5, 0.4, 0.85 ) what are these?
-                    These get set later.
-                    const params = {
-                        exposure: 1,
-                        bloomStrength: 1.5, // this is the only one he sets, from 0–10. Same as intensity?
-                        bloomThreshold: 0,
-                        bloomRadius: 0
-                    } 
-                     */}
-                      <Bloom ref={bloomRef} mipmapBlur luminanceThreshold={0} levels={2} intensity={10}/>
-                  </EffectComposer>
+                <EffectComposer disableNormalPass>
+                    <Bloom
+                        ref={bloomRef}
+                        mipmapBlur
+                        luminanceThreshold={0}
+                        levels={2}
+                        intensity={10}
+                    />
+                </EffectComposer>
             </Suspense>
         </View>
     )
