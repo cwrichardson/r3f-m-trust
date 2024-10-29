@@ -1,10 +1,11 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Suspense, useMemo, useRef } from 'react';
+import { Suspense, useContext, useMemo, useRef } from 'react';
 import { PerspectiveCamera } from '@react-three/drei';
 import { Bloom, EffectComposer } from '@react-three/postprocessing';
 
+import { AnimationContext } from 'app/three-provider';
 import { Points } from '@/components/points';
 
 const View = dynamic(() => import('src/components/view')
@@ -15,7 +16,8 @@ const View = dynamic(() => import('src/components/view')
 
 export function Model(props) {
     const meshRef = useRef();
-    const bloomRef = useRef();
+    const { bloomRef } = useContext(AnimationContext);
+
     const rows = 10;
     const columns = 10;
     const halfColumns = Math.floor(columns / 2);
@@ -46,8 +48,6 @@ export function Model(props) {
                 <Points
                   vertices={vertices}
                   positions={locationCoords}
-                //   we pass this to `Points`, just so all the UI is in the same place
-                  bloom={bloomRef}
                   ref={meshRef} />
                 <PerspectiveCamera
                   makeDefault

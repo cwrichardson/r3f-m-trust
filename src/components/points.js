@@ -1,17 +1,18 @@
 'use client';
 
-import { forwardRef, useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { forwardRef, useContext } from 'react';
 import { DoubleSide } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { useTexture } from '@react-three/drei';
+import { useControls } from 'leva';
 
+import { AnimationContext } from 'app/three-provider';
 import { vertex } from '@/glsl/vertex';
 import { fragment } from '@/glsl/fragment';
-import { useControls } from 'leva';
-import { useTexture } from '@react-three/drei';
 
 export const Points = forwardRef((props, ref) => {
-    const { vertices, positions, bloom, ...rest } = props;
-    const shaderRef = useRef();
+    const { vertices, positions, ...rest } = props;
+    const { bloomRef, shaderRef } = useContext(AnimationContext);
 
     const whiteFlowerTexture = useTexture('/media/white-flower.jpg');
     const redFlowerTexture = useTexture('/media/red-flower.jpg');
@@ -33,8 +34,8 @@ export const Points = forwardRef((props, ref) => {
             min: 0,
             max: 10,
             onChange: (v) => {
-                if (bloom.current !== null) {
-                    bloom.current.setIntensity(v);
+                if (bloomRef.current !== null) {
+                    bloomRef.current.setIntensity(v);
                 }
             }
         }
@@ -42,7 +43,7 @@ export const Points = forwardRef((props, ref) => {
 
     useFrame((state, delta, xrFrame) => {
         // do animation
-        shaderRef.current.uniforms.uTime.value += delta;
+        // shaderRef.current.uniforms.uTime.value += delta;
 
         // executes 1/frame, so we can just directly morph the ref with a delta
         // ref.current.rotation.x += 0.01;

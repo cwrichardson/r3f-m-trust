@@ -1,12 +1,13 @@
 'use client';
 
-import { useRef } from 'react';
+import { useContext } from 'react';
 import gsap from 'gsap';
 
 import { panda } from 'styled-system/jsx';
+import { AnimationContext } from 'app/three-provider';
 
 export function ActiveVideo() {
-    const videoRef = useRef();
+    const { videoRef } = useContext(AnimationContext);
 
     function handleEnd() {
         gsap.to(videoRef.current, {
