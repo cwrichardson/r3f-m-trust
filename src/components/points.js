@@ -11,7 +11,6 @@ import { vertex } from '@/glsl/vertex';
 import { fragment } from '@/glsl/fragment';
 
 export const Points = forwardRef((props, ref) => {
-    const { vertices, positions, ...rest } = props;
     const { bloomRef, shaderRef } = useContext(AnimationContext);
 
     const whiteFlowerTexture = useTexture('/media/white-flower.jpg');
@@ -51,16 +50,7 @@ export const Points = forwardRef((props, ref) => {
     })
 
     return (
-        <points ref={ref} {...rest}>
-            {/* <bufferGeometry
-              width={1}
-              height={1}
-              widthSegments={10}
-              heightSegments={10}
-            >
-                <bufferAttribute attach={'attributes-position'} args={[vertices, 3]} />
-                <bufferAttribute attach={'attributes-aCoords'} args={[positions, 2]} />
-            </bufferGeometry> */}
+        <points ref={ref} {...props}>
             <planeGeometry args={[608*1.665, 344*1.665, 608, 344]} />
             <shaderMaterial
               ref={shaderRef}
