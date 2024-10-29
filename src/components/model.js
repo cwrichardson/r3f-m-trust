@@ -5,6 +5,8 @@ import { Suspense, useMemo, useRef } from 'react';
 import { PerspectiveCamera } from '@react-three/drei';
 
 import { Points } from '@/components/points';
+import { KernelSize } from 'postprocessing';
+import { Bloom, EffectComposer } from '@react-three/postprocessing';
 
 const View = dynamic(() => import('src/components/view')
     .then((mod) => mod.View), {
@@ -14,6 +16,7 @@ const View = dynamic(() => import('src/components/view')
 
 export function Model(props) {
     const meshRef = useRef();
+    const bloomRef = useRef();
     const rows = 10;
     const columns = 10;
     const halfColumns = Math.floor(columns / 2);
@@ -38,13 +41,14 @@ export function Model(props) {
         ];
     }, [halfColumns, halfRows])
 
-
     return (
         <View orbit {...props}>
             <Suspense fallback={null}>
                 <Points
                   vertices={vertices}
                   positions={locationCoords}
+                //   we pass this to `Points`, just so all the UI is in the same place
+                  bloom={bloomRef}
                   ref={meshRef} />
                 <PerspectiveCamera
                   makeDefault
@@ -53,8 +57,25 @@ export function Model(props) {
                   far={5000}
                   position={[0, 0, 1500]}
                 />
+
                   {/* <ambientLight intensity={0.5} />
                   <directionalLight intensity={0.5} position={[0.5, 0, 0.866]} /> {/* ~60º */}
+            </Suspense>
+            <Suspense fallback={null}>
+                  <EffectComposer disableNormalPass>
+                    {/* 
+                    
+                    UnrealBloomPass( (w/h), 1.5, 0.4, 0.85 ) what are these?
+                    These get set later.
+                    const params = {
+                        exposure: 1,
+                        bloomStrength: 1.5, // this is the only one he sets, from 0–10. Same as intensity?
+                        bloomThreshold: 0,
+                        bloomRadius: 0
+                    } 
+                     */}
+                      <Bloom ref={bloomRef} mipmapBlur luminanceThreshold={0} levels={2} intensity={10}/>
+                  </EffectComposer>
             </Suspense>
         </View>
     )

@@ -10,7 +10,7 @@ import { useControls } from 'leva';
 import { useTexture } from '@react-three/drei';
 
 export const Points = forwardRef((props, ref) => {
-    const { vertices, positions } = props;
+    const { vertices, positions, bloom, ...rest } = props;
     const shaderRef = useRef();
 
     const whiteFlowerTexture = useTexture('/media/white-flower.jpg');
@@ -19,7 +19,7 @@ export const Points = forwardRef((props, ref) => {
     /**
      * Use leva controls
      */
-    const { distortion } = useControls({
+    useControls({
         distortion: {
             value: 0.01,
             min: 0,
@@ -27,8 +27,18 @@ export const Points = forwardRef((props, ref) => {
             onChange: (v) => {
                 shaderRef.current.uniforms.uDistortion.value = v;
             }
+        },
+        intensity: {
+            value: 10,
+            min: 0,
+            max: 10,
+            onChange: (v) => {
+                if (bloom.current !== null) {
+                    bloom.current.setIntensity(v);
+                }
+            }
         }
-    })
+    });
 
     useFrame((state, delta, xrFrame) => {
         // do animation
@@ -40,7 +50,7 @@ export const Points = forwardRef((props, ref) => {
     })
 
     return (
-        <points ref={ref}>
+        <points ref={ref} {...rest}>
             {/* <bufferGeometry
               width={1}
               height={1}
