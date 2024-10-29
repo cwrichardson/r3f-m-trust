@@ -15,6 +15,7 @@ export const vertex = CURL_NOISE_WITH_DEPS + /* glsl */ `
             (position.x + position.y) * 0.02
         )) * uDistortion;
         vec3 finalPosition = position + distortion;
+        finalPosition = position;
 
         vec4 mvPosition = modelViewMatrix * vec4( finalPosition, 1. );
         // start with big particles; give them some perspective
