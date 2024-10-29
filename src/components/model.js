@@ -3,10 +3,9 @@
 import dynamic from 'next/dynamic';
 import { Suspense, useMemo, useRef } from 'react';
 import { PerspectiveCamera } from '@react-three/drei';
+import { Bloom, EffectComposer } from '@react-three/postprocessing';
 
 import { Points } from '@/components/points';
-import { KernelSize } from 'postprocessing';
-import { Bloom, EffectComposer } from '@react-three/postprocessing';
 
 const View = dynamic(() => import('src/components/view')
     .then((mod) => mod.View), {
