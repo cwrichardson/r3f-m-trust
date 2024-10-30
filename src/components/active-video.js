@@ -21,6 +21,11 @@ export function ActiveVideo() {
         gsap.to(shaderRef.current, {
             duration: 2,
             uDistortion: 3,
+        })
+
+        gsap.to(shaderRef.current, {
+            duration: 2,
+            uDistortion: 0,
             delay: 2
         })
     })
