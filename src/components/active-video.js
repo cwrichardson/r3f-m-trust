@@ -2,19 +2,28 @@
 
 import { useContext } from 'react';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react'; 
 
 import { panda } from 'styled-system/jsx';
 import { AnimationContext } from 'app/three-provider';
 
 export function ActiveVideo() {
-    const { videoRef } = useContext(AnimationContext);
+    const { shaderRef, videoRef } = useContext(AnimationContext);
+    gsap.registerPlugin(useGSAP);
+    const { contextSafe } = useGSAP();
 
-    function handleEnd() {
+    const handleEnd = contextSafe(() => {
         gsap.to(videoRef.current, {
             duration: 0.1,
             opacity: 0
         })
-    }
+
+        gsap.to(shaderRef.current, {
+            duration: 2,
+            uDistortion: 3,
+            delay: 2
+        })
+    })
 
     // // Convert vertical FOV (70) to radians
     // const FOV = 70 * Math.PI / 180
