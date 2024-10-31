@@ -16,23 +16,32 @@ export function ActiveVideo() {
     const bloomIntensity = { value: 0 };
 
     const handleEnd = contextSafe(() => {
-        const distortionTl = gsap.timeline({
-            repeat: 1,
-            yoyo: true
-        })
-        const bloomTl = gsap.timeline({
-            repeat: 1,
-            yoyo: true
-        })
+        const distortionTl = gsap.timeline()
+        const bloomTl = gsap.timeline()
 
         distortionTl.to(shaderRef.current, {
             duration: 2,
-            uDistortion: 3
+            uDistortion: 1.4,
+            ease: "power2.in"
+        })
+        .to(shaderRef.current, {
+            duration: 2,
+            uDistortion: 0,
+            ease: "expo.in"
         })
 
         bloomTl.to(bloomIntensity, {
             duration: 2,
-            value: 10,
+            value: 7,
+            ease: "power2.in",
+            onUpdate: () => {
+                bloomRef?.current?.setIntensity(bloomIntensity.value)
+            }
+        })
+        .to(bloomIntensity, {
+            duration: 2,
+            value: 0,
+            ease: "expo.in",
             onUpdate: () => {
                 bloomRef?.current?.setIntensity(bloomIntensity.value)
             }
