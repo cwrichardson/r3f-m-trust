@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import { DoubleSide, Texture } from 'three';
 import { extend, useFrame } from '@react-three/fiber';
 import { shaderMaterial, useTexture } from '@react-three/drei';
-import { useControls } from 'leva';
 
 import { AnimationContext } from 'app/three-provider';
 import { vertex } from '@/glsl/vertex';
@@ -27,22 +26,6 @@ export function Points(props) {
 
     const whiteFlowerTexture = useTexture('/media/white-flower.jpg');
     const redFlowerTexture = useTexture('/media/red-flower.jpg');
-
-    /**
-     * Use leva controls
-     */
-    useControls({
-        intensity: {
-            value: 0,
-            min: 0,
-            max: 10,
-            onChange: (v) => {
-                if (bloomRef.current !== null) {
-                    bloomRef.current.setIntensity(v);
-                }
-            }
-        }
-    });
 
     useFrame((state, delta, xrFrame) => {
         // do animation

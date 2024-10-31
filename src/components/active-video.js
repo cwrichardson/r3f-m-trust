@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react'; 
 
@@ -8,26 +8,43 @@ import { panda } from 'styled-system/jsx';
 import { AnimationContext } from 'app/three-provider';
 
 export function ActiveVideo() {
-    const { shaderRef, videoRef } = useContext(AnimationContext);
+    const { bloomRef, shaderRef, videoRef } = useContext(AnimationContext);
     gsap.registerPlugin(useGSAP);
     const { contextSafe } = useGSAP();
 
+    // let GSAP control intensity
+    const bloomIntensity = { value: 0 };
+
     const handleEnd = contextSafe(() => {
+        const distortionTl = gsap.timeline({
+            repeat: 1,
+            yoyo: true
+        })
+        const bloomTl = gsap.timeline({
+            repeat: 1,
+            yoyo: true
+        })
+
+        distortionTl.to(shaderRef.current, {
+            duration: 2,
+            uDistortion: 3
+        })
+
+        bloomTl.to(bloomIntensity, {
+            duration: 2,
+            value: 10,
+            onUpdate: () => {
+                bloomRef?.current?.setIntensity(bloomIntensity.value)
+            }
+        })
+
         gsap.to(videoRef.current, {
             duration: 0.1,
             opacity: 0
         })
+        distortionTl.play(true);
+        bloomTl.play(true);
 
-        gsap.to(shaderRef.current, {
-            duration: 2,
-            uDistortion: 3,
-        })
-
-        gsap.to(shaderRef.current, {
-            duration: 2,
-            uDistortion: 0,
-            delay: 2
-        })
     })
 
     // // Convert vertical FOV (70) to radians

@@ -39,7 +39,7 @@ export function Model(props) {
                         mipmapBlur
                         luminanceThreshold={0}
                         levels={2}
-                        intensity={10}
+                        intensity={0}
                     />
                 </EffectComposer>
             </Suspense>
