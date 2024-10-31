@@ -13,7 +13,8 @@ const CustomMaterial = shaderMaterial(
     {
         uDistortion: 0,
         uProgress: 1,
-        uTexture: new Texture(),
+        uT1: new Texture(),
+        uT2: new Texture(),
         uTime: 0
     },
     vertex,
@@ -43,13 +44,13 @@ export function Points(props) {
               ref={shaderRef}
               key={CustomMaterial.key}
               uDistortion={0}
-              uTexture={whiteFlowerTexture}
-              uProgress={1}
+              uT1={whiteFlowerTexture}
+              uT2={redFlowerTexture}
+              uProgress={0}
               uTime={0}
               extensions={{ derivatives: "#extension GL_OES_standard_derivatives : enable"}}
               side={DoubleSide}
               depthTest={false}
-              wireframe={true}
               transparent
             />
         </points>

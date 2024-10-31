@@ -10,6 +10,7 @@ export const AnimationContext = createContext(null);
 export function ThreeProvider({ children }) {
     const ref = useRef();
     const videoRef = useRef();
+    const video2Ref = useRef();
     const shaderRef = useRef();
     const bloomRef = useRef();
 
@@ -24,6 +25,7 @@ export function ThreeProvider({ children }) {
         >
           <AnimationContext.Provider value={{
             videoRef,
+            video2Ref,
             shaderRef,
             bloomRef
           }}>
